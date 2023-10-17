@@ -1,18 +1,22 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\API;
 
+use App\Http\Controllers\Controller;
 use App\Models\Kegiatan;
 use Illuminate\Http\Request;
 
 class KegiatanController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    protected $kegiatan;
+
+    public function __construct(){
+        $this->kegiatan = new Kegiatan();
+    }
+
     public function index()
     {
-        //
+        return $this->kegiatan->all();
     }
 
     /**
@@ -28,7 +32,7 @@ class KegiatanController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return $this->kegiatan->create($request->all());
     }
 
     /**
@@ -36,7 +40,7 @@ class KegiatanController extends Controller
      */
     public function show(Kegiatan $kegiatan)
     {
-        //
+        return $this->kegiatan->find($kegiatan->id);
     }
 
     /**
@@ -52,7 +56,9 @@ class KegiatanController extends Controller
      */
     public function update(Request $request, Kegiatan $kegiatan)
     {
-        //
+        $kegiatan = $this->kegiatan->find($kegiatan->id);
+        $kegiatan->update($request->all());
+        return $kegiatan;
     }
 
     /**
@@ -60,6 +66,7 @@ class KegiatanController extends Controller
      */
     public function destroy(Kegiatan $kegiatan)
     {
-        //
+        $kegiatan = $this->kegiatan->find($kegiatan->id);
+        return $kegiatan->delete();
     }
 }
