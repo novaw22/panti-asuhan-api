@@ -1,18 +1,22 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\API;
 
+use App\Http\Controllers\Controller;
 use App\Models\Pengumuman;
 use Illuminate\Http\Request;
 
 class PengumumanController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    protected $pengumuman;
+
+    public function __construct(){
+        $this->pengumuman = new Pengumuman();
+    }
+
     public function index()
     {
-        //
+        return $this->pengumuman->all();
     }
 
     /**
@@ -28,15 +32,15 @@ class PengumumanController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return $this->pengumuman->create($request->all());
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Pengumuman $pengumuman)
+    public function show(string $id)
     {
-        //
+        return $this->pengumuman->find($id);
     }
 
     /**
@@ -52,7 +56,9 @@ class PengumumanController extends Controller
      */
     public function update(Request $request, Pengumuman $pengumuman)
     {
-        //
+        $pengumuman = $this->pengumuman->find($pengumuman->id);
+        $pengumuman->update($request->all());
+        return $pengumuman;
     }
 
     /**
@@ -60,6 +66,7 @@ class PengumumanController extends Controller
      */
     public function destroy(Pengumuman $pengumuman)
     {
-        //
+        $pengumuman = $this->pengumuman->find($pengumuman->id);
+        return $pengumuman->delete();
     }
 }
