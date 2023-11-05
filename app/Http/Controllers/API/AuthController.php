@@ -28,7 +28,6 @@ class AuthController extends Controller
         $input = $request->all();
         $input['password'] = bcrypt($input['password']);
         $user = User::create($input);
-
         $success['token'] = $user->createToken('auth_token')->plainTextToken;
         $success['name'] = $user->name;
 
@@ -36,6 +35,7 @@ class AuthController extends Controller
             'success' => true,
             'message' => 'success',
             'data' => $success
+         
         ]);
     }
 
