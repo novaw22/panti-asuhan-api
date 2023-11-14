@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('nama');
             $table->string('tempat_lahir');
             $table->date('tanggal_lahir');
-            $table->enum('jenis_kelamin', ['L','P']);
+            $table->string('jenis_kelamin');
             $table->string('agama');
             $table->string('status');
             $table->string('akta_kelahiran');

@@ -12,7 +12,7 @@ class ProgramDonatur extends Model
     protected $guarded = ["id"];
 
     public function users() {
-        return $this->hasMany(User::class);
+        return $this->belongsTo(User::class);
     }
 
     public function jenis_program() {
