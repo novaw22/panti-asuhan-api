@@ -1,65 +1,39 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\API;
 
+use App\Http\Controllers\Controller;
 use App\Models\AnakAsuh;
 use Illuminate\Http\Request;
 
 class AnakAsuhController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        return AnakAsuh::all();
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function show($id)
     {
-        //
+        return AnakAsuh::findOrFail($id);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        return AnakAsuh::create($request->all());
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(AnakAsuh $anakAsuh)
+    public function update(Request $request, $id)
     {
-        //
+        $anakAsuh = AnakAsuh::findOrFail($id);
+        $anakAsuh->update($request->all());
+        return $anakAsuh;
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(AnakAsuh $anakAsuh)
+    public function destroy($id)
     {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, AnakAsuh $anakAsuh)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(AnakAsuh $anakAsuh)
-    {
-        //
+        $anakAsuh = AnakAsuh::findOrFail($id);
+        $anakAsuh->delete();
+        return response()->json(['message' => 'Anak Asuh deleted']);
     }
 }
