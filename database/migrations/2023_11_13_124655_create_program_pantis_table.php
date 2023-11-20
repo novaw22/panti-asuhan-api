@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('jenis_program_id');
             $table->string('jadwal');
-            $table->string('deskripsi');
+            $table->text('deskripsi');
             $table->string('gambar_thumbnail');
 
             $table->foreign('jenis_program_id')->references('id')->on('jenis_programs');

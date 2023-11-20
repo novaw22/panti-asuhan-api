@@ -3,6 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Http\Exceptions\HttpResponseException;
 
 class UpdateProgramPantiRequest extends FormRequest
 {
@@ -11,7 +13,7 @@ class UpdateProgramPantiRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +24,25 @@ class UpdateProgramPantiRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'jenis_program_id' => 'required|exists:jenis_programs,id',
+            'jadwal' => 'required|max:50',
+            'deskripsi' => 'required',
+            'gambar_thumbnail' => 'required|max:255',
         ];
+    }
+
+    /**
+     * Handle a failed validation attempt.
+     *
+     * @param  \Illuminate\Contracts\Validation\Validator  $validator
+     * @return void
+     *
+     * @throws \Illuminate\Validation\ValidationException
+     */
+    protected function failedValidation(Validator $validator)
+    {
+        throw new HttpResponseException(
+            response()->json(['error' => 'terjadi kesalahan dalam validasi'], 422)
+        );
     }
 }
